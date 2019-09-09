@@ -1,3 +1,7 @@
+.mine {
+  background-image: url('./mine.png');
+}
+
 /* CSS classes you can use on your table td to display the relevant tile */
 td.unopened {
   background: url('img/unopened.svg');

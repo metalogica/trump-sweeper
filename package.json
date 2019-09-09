@@ -1,0 +1,12 @@
+{
+  "name": "trump-sweeper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:catonmat/trump-sweeper.git",
+  "author": "Richard Jarram <rjarram@me.com>",
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^4.39.3",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
