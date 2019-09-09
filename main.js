@@ -4,9 +4,23 @@ const toggleCell = (cell) => {
 }
 
 const checkAdjacentCells = (cell) => {
-  const cellIndex = cell.cellIndex;
-  const cellRow = cell.parentElement.rowIndex;
-  console.log(cellIndex, cellRow);
+  // const cellIndex = cell.cellIndex;
+  // const cellRow = cell.parentElement.rowIndex;
+  // console.log(cellIndex, cellRow);
+
+  // Select the x8 adjacent cells of 'cell'.
+  let adjacentCells = document.querySelectorAll('');
+
+  condition = true
+  // while some cell in the entire table is such that:
+    // it has an adjacent cell such that:
+      // It is both NOT-opened AND has no adjacent mine && has no adjacent-numbered-cell
+  if (condition) {
+    // execute the checker function again and update the array.
+    // checkAdjacentCells(newCell);
+  } else {
+    // end the function
+  }
 }
 
 const click = (cell) => {
