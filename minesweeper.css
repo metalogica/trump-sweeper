@@ -1,6 +1,3 @@
-.mine {
-  background-image: url('./mine.png');
-}
 
 /* CSS classes you can use on your table td to display the relevant tile */
 td.unopened {
@@ -17,7 +14,13 @@ td.question {
   background: url('img/question.svg');
 }
 td.mine {
-  background: url('img/mine.png');
+  /* Used top signal presence of a mine */
+}
+td.mine-show {
+  background-image: url('img/mine.png');
+}
+td.explosion {
+  background-color: red;
 }
 td.mine-neighbour-1 {
   background: url('img/1.svg');

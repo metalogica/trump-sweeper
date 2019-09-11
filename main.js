@@ -12,39 +12,32 @@ const getAdjacentCells = (cell) => {
   let c6 = document.getElementById(`${cell.parentElement.rowIndex - 1}-${cell.cellIndex - 1}`);
   let c7 = document.getElementById(`${cell.parentElement.rowIndex}-${cell.cellIndex - 1}`);
   let c8 = document.getElementById(`${cell.parentElement.rowIndex + 1}-${cell.cellIndex - 1}`);
-  return [c1,c2,c3,c4,c5,c6,c7,c8].filter(c => c !== null)
+  return [c1,c2,c3,c4,c5,c6,c7,c8].filter(c => c !== null);
 }
 
-const checkAdjacentCells = (cell) => {
-  // Select the x8 adjacent cells of 'cell'.
-  let clickedX = cell.parentElement.rowIndex;
-  let clickedY = cell.cellIndex;
-  let adjacentCells = [];
-
-  console.log(getAdjacentCells(cell));
-
-  // console.log(cell.getAttribute('id'));
-  // console.log(clickedX, clickedY);
-
-  // condition = true
-  // while some cell in the entire table is such that:
-    // it has an adjacent cell such that:
-      // It is both NOT-opened AND has no adjacent mine && has no adjacent-numbered-cell
-  // if (condition) {
-  //   // execute the checker function again and update the array.
-  //   // checkAdjacentCells(newCell);
-  // } else {
-  //   // end the function
-  // }
+const checkAdjacentCells = (cellArray, currentCell) => {
+  let mineCount = 0;
+  cellArray.forEach(cell => {
+    if (cell.classList.contains('mine')) { mineCount += 1; }
+  });
+  if (mineCount > 0) { currentCell.classList.add(`mine-neighbour-${mineCount}`); }
+  return cellArray.filter(c => !c.classList.contains('mine') && c.classList.contains('unopened') && !c.classList.contains(/neighbour/));
 }
+
+const hasMine = cell => cell.classList.contains('mine');
 
 const click = (cell) => {
-  if (cell.classList.contains('mine')) {
-    console.log('you lose!');
+  if (hasMine(cell)) {
+    cell.classList.remove('unopened')
+    cell.classList.add('explosion');
+    cell.classList.add('mine-show');
   } else {
-    console.log('skin in the game!');
     toggleCell(cell);
-    checkAdjacentCells(cell);
+    adjacentCells = getAdjacentCells(cell);
+    newArr = checkAdjacentCells(adjacentCells, cell);
+    if (newArr.length > 0) {
+      newArr.forEach(c => click(c))
+    }
   }
 }
 
