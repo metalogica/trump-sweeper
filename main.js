@@ -1,4 +1,18 @@
+// Generate board
+const buildBoard = () => {
+
+}
+
 // Autocomplete Algorithm
+const checkNextCells = (cell) => {
+  openCurrentCell(cell);
+  adjacentCells = getAdjacentCells(cell);
+  nextAdjacentCells = checkAdjacentCells(adjacentCells, cell);
+  if (nextAdjacentCells.length > 0 && !isNeighbour(cell)) {
+   nextAdjacentCells.forEach(c => click(c));
+  }
+}
+
 const openCurrentCell = (cell) => {
   cell.classList.remove('unopened');
   cell.classList.add('opened');
@@ -19,6 +33,8 @@ const getAdjacentCells = (cell) => {
   return [c1,c2,c3,c4,c5,c6,c7,c8].filter(c => c !== null);
 }
 
+const isNeighbour = cell => cell.classList.contains('neighbour');
+
 const checkAdjacentCells = (cellArray, currentCell) => {
   let mineCount = 0;
   cellArray.forEach(cell => {
@@ -28,30 +44,43 @@ const checkAdjacentCells = (cellArray, currentCell) => {
   return cellArray.filter(c => !c.classList.contains('mine') && c.classList.contains('unopened') && !c.classList.contains('neighbour'));
 }
 
-const isNeighbour = cell => cell.classList.contains('neighbour');
-
-const checkNextCells = (cell) => {
+// Reveal all tiles at end of game
+const openAllCellsAtGameEnd = (cell) => {
   openCurrentCell(cell);
   adjacentCells = getAdjacentCells(cell);
-  nextAdjacentCells = checkAdjacentCells(adjacentCells, cell);
-  if (nextAdjacentCells.length > 0 && !isNeighbour(cell)) {
-   nextAdjacentCells.forEach(c => click(c));
+  nextAdjacentCells = openAdjacentCellsAtGameEnd(adjacentCells, cell);
+  if (nextAdjacentCells.length > 0) {
+    nextAdjacentCells.forEach( cell => closeAdjacentCellsAtGameEnd(cell));
   }
 }
 
+const closeAdjacentCellsAtGameEnd =  cell => hasMine(cell) ? renderMines(cell) : openAllCellsAtGameEnd(cell);
+
+const openAdjacentCellsAtGameEnd = (cellArray, currentCell) => {
+  let mineCount = 0;
+  cellArray.forEach(cell => {
+    if (cell.classList.contains('mine')) { mineCount += 1; }
+  });
+  if (mineCount > 0 && !currentCell.classList.contains('mine-show')) {
+    currentCell.classList.add(`mine-neighbour-${mineCount}`);
+  }
+  return cellArray.filter(c => !c.classList.contains('mine') && c.classList.contains('unopened'));
+}
 
 // Top-Level Code
 const hasMine = cell => cell.classList.contains('mine');
 
 const renderMines = (cell) => {
-  let mines = document.querySelectorAll('.mine').forEach(mine => mine.classList.add('mine-show'));
-  cell.classList.remove('unopened')
-  cell.classList.add('explosion', 'mine-show', 'opened');
+  cell.classList.add('explosion', 'opened');
+  // Set mine explosion styling for all cells with mines.
+  document.querySelectorAll('.mine').forEach(mine => mine.classList.add('mine-show'));
+  // Render all cells as opened.
 }
 
 const click = (cell) => {
   if (hasMine(cell)) {
     renderMines(cell);
+    openAllCellsAtGameEnd(cell);
   } else {
     // The parent function is recursive function: click() is called within the function below.
     checkNextCells(cell)

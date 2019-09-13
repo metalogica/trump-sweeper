@@ -6,6 +6,8 @@
   "author": "Richard Jarram <rjarram@me.com>",
   "license": "MIT",
   "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "webpack": "^4.39.3",
     "webpack-dev-server": "^3.8.0"
   }
