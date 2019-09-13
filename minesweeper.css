@@ -18,6 +18,7 @@ td.mine {
 }
 td.mine-show {
   background-image: url('img/mine.png');
+  background-color: silver;
 }
 td.explosion {
   background-color: red;
@@ -45,6 +46,9 @@ td.mine-neighbour-7 {
 }
 td.mine-neighbour-8 {
   background: url('img/8.svg');
+}
+td.neighbour {
+  /* Used to identify neighbour cells in JS only. */
 }
 
 /* Positioning the Minesweep table and make sure the cells are square */
