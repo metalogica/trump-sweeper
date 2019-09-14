@@ -50,11 +50,9 @@ const openAllCellsAtGameEnd = (cell) => {
   adjacentCells = getAdjacentCells(cell);
   nextAdjacentCells = openAdjacentCellsAtGameEnd(adjacentCells, cell);
   if (nextAdjacentCells.length > 0) {
-    nextAdjacentCells.forEach( cell => closeAdjacentCellsAtGameEnd(cell));
+    nextAdjacentCells.forEach( cell => openAllCellsAtGameEnd(cell));
   }
 }
-
-const closeAdjacentCellsAtGameEnd =  cell => hasMine(cell) ? renderMines(cell) : openAllCellsAtGameEnd(cell);
 
 const openAdjacentCellsAtGameEnd = (cellArray, currentCell) => {
   let mineCount = 0;
@@ -64,17 +62,17 @@ const openAdjacentCellsAtGameEnd = (cellArray, currentCell) => {
   if (mineCount > 0 && !currentCell.classList.contains('mine-show')) {
     currentCell.classList.add(`mine-neighbour-${mineCount}`);
   }
-  return cellArray.filter(c => !c.classList.contains('mine') && c.classList.contains('unopened'));
+  return cellArray.filter(c => c.classList.contains('unopened'));
 }
 
 // Top-Level Code
 const hasMine = cell => cell.classList.contains('mine');
 
 const renderMines = (cell) => {
-  cell.classList.add('explosion', 'opened');
   // Set mine explosion styling for all cells with mines.
-  document.querySelectorAll('.mine').forEach(mine => mine.classList.add('mine-show'));
+  cell.classList.add('explosion', 'opened');
   // Render all cells as opened.
+  document.querySelectorAll('.mine').forEach(mine => mine.classList.add('mine-show'));
 }
 
 const click = (cell) => {
