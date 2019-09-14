@@ -65,6 +65,9 @@ const openAdjacentCellsAtGameEnd = (cellArray, currentCell) => {
   return cellArray.filter(c => c.classList.contains('unopened'));
 }
 
+let gameWon = false;
+let gameLost = false;
+
 // Top-Level Code
 const hasMine = cell => cell.classList.contains('mine');
 
