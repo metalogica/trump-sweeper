@@ -1,12 +1,19 @@
+// Globals
+let gameWon = false;
+let gameLost = false;
+let globalMineCount = 30;
+let globalFlagCount = 0;
+let globalFlagLimit = globalMineCount;
+
 // Generate board
 const buildBoard = () => {
   const boardContainer = document.getElementById('root');
   boardContainer.innerHTML = '';
 
   var table = [];
-  for (let rowIndex = 0; rowIndex < 9; rowIndex++) {
+  for (let rowIndex = 0; rowIndex < 20; rowIndex++) {
     let row = [`<tr>`,`</tr>`];
-    for (let tdIndex = 0; tdIndex < 9; tdIndex++) {
+    for (let tdIndex = 0; tdIndex < 20; tdIndex++) {
       let td = `<td id="${rowIndex}-${tdIndex}" class="unopened"></td>`;
       row.splice(-1,0,td);
     }
@@ -24,11 +31,9 @@ function rand(min, max) {
 
 const setMines = (board) => {
   const cells = Array.from(document.querySelectorAll('td'));
-  for (let mineCount = 0; mineCount < 10; mineCount++) {
-    while (cells.filter(c=>c.classList.contains('mine')).length < 10) {
-      let cell = cells[rand(0,cells.length-1)];
-      if (!cell.classList.contains('mine')) { cell.classList.add('mine') }
-    }
+  while (cells.filter(c=>c.classList.contains('mine')).length < globalMineCount) {
+    let cell = cells[rand(0,cells.length-1)];
+    if (!cell.classList.contains('mine')) { cell.classList.add('mine') }
   }
 }
 
@@ -100,8 +105,17 @@ const openAdjacentCellsAtGameEnd = (cellArray, currentCell) => {
   return cellArray.filter(c => c.classList.contains('unopened'));
 }
 
-let gameWon = false;
-let gameLost = false;
+// Flag code
+const addFlag = (cell) => {
+  if (cell.classList.contains('flagged')) {
+    cell.classList.remove('flagged')
+    globalFlagCount -= 1;
+  } else {
+    globalFlagCount < globalFlagLimit ? cell.classList.add('flagged') : alert('Too many flags!');
+    globalFlagCount += 1;
+  }
+  console.log(globalFlagCount, globalFlagLimit)
+}
 
 // Top-Level Code
 const hasMine = cell => cell.classList.contains('mine');
@@ -127,5 +141,8 @@ const unopened = document.querySelectorAll('.unopened');
 unopened.forEach(cell => {
   cell.addEventListener('click', (event) => {
     click(cell);
+  })
+  cell.addEventListener('contextmenu', () => {
+    addFlag(cell);
   })
 });
