@@ -2,8 +2,8 @@
 let gameWon = false;
 let gameLost = false;
 let globalMineCount = 30;
-let globalFlagCount = 0;
-let globalFlagLimit = globalMineCount;
+let flagLimit = globalMineCount;
+let currentFlagCount = 0;
 
 // Generate board
 const buildBoard = () => {
@@ -109,12 +109,12 @@ const openAdjacentCellsAtGameEnd = (cellArray, currentCell) => {
 const addFlag = (cell) => {
   if (cell.classList.contains('flagged')) {
     cell.classList.remove('flagged')
-    globalFlagCount -= 1;
+    currentFlagCount -= 1;
   } else {
-    globalFlagCount < globalFlagLimit ? cell.classList.add('flagged') : alert('Too many flags!');
-    globalFlagCount += 1;
+    currentFlagCount < flagLimit ? cell.classList.add('flagged') : alert('Too many flags!');
+    currentFlagCount += 1;
   }
-  console.log(globalFlagCount, globalFlagLimit)
+  console.log(currentFlagCount, flagLimit)
 }
 
 // Top-Level Code
