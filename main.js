@@ -4,9 +4,9 @@ const buildBoard = () => {
   boardContainer.innerHTML = '';
 
   var table = [];
-  for (let rowIndex = 0; rowIndex < 4; rowIndex++) {
+  for (let rowIndex = 0; rowIndex < 9; rowIndex++) {
     let row = [`<tr>`,`</tr>`];
-    for (let tdIndex = 0; tdIndex < 4; tdIndex++) {
+    for (let tdIndex = 0; tdIndex < 9; tdIndex++) {
       let td = `<td id="${rowIndex}-${tdIndex}" class="unopened"></td>`;
       row.splice(-1,0,td);
     }
@@ -15,7 +15,28 @@ const buildBoard = () => {
   table = table.join('');
   boardContainer.insertAdjacentHTML('afterbegin', table);
 }
-buildBoard()
+
+function rand(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+const setMines = (board) => {
+  const cells = Array.from(document.querySelectorAll('td'));
+  for (let mineCount = 0; mineCount < 10; mineCount++) {
+    while (cells.filter(c=>c.classList.contains('mine')).length < 10) {
+      let cell = cells[rand(0,cells.length-1)];
+      if (!cell.classList.contains('mine')) { cell.classList.add('mine') }
+    }
+  }
+}
+
+const generateBoard = () => {
+  buildBoard();
+  setMines();
+}
+generateBoard();
 
 // Autocomplete Algorithm
 const checkNextCells = (cell) => {
