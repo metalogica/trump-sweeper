@@ -1,7 +1,21 @@
 // Generate board
 const buildBoard = () => {
+  const boardContainer = document.getElementById('root');
+  boardContainer.innerHTML = '';
 
+  var table = [];
+  for (let rowIndex = 0; rowIndex < 4; rowIndex++) {
+    let row = [`<tr>`,`</tr>`];
+    for (let tdIndex = 0; tdIndex < 4; tdIndex++) {
+      let td = `<td id="${rowIndex}-${tdIndex}" class="unopened"></td>`;
+      row.splice(-1,0,td);
+    }
+    table.push(row.join(''));
+  }
+  table = table.join('');
+  boardContainer.insertAdjacentHTML('afterbegin', table);
 }
+buildBoard()
 
 // Autocomplete Algorithm
 const checkNextCells = (cell) => {
