@@ -4,6 +4,20 @@ let gameLost = false;
 let globalMineCount = 30;
 let flagLimit = globalMineCount;
 let currentFlagCount = 0;
+let displayFlagCount = document.getElementById('flagCount');
+let clock = document.getElementById('clock');
+
+// Game Init
+const updateFlagDisplay = () => displayFlagCount.innerText = flagLimit - currentFlagCount;
+
+const setClock = () => {
+
+}
+
+const initGlobals = () => {
+  updateFlagDisplay();
+}
+initGlobals()
 
 // Generate board
 const buildBoard = () => {
@@ -105,14 +119,19 @@ const openAdjacentCellsAtGameEnd = (cellArray, currentCell) => {
   return cellArray.filter(c => c.classList.contains('unopened'));
 }
 
+
+
 // Flag code
 const addFlag = (cell) => {
   if (cell.classList.contains('flagged')) {
     cell.classList.remove('flagged')
     currentFlagCount -= 1;
+    updateFlagDisplay();
   } else {
     currentFlagCount < flagLimit ? cell.classList.add('flagged') : alert('Too many flags!');
     currentFlagCount += 1;
+    displayFlagCount.innerText = flagLimit - currentFlagCount;
+    updateFlagDisplay();
   }
   console.log(currentFlagCount, flagLimit)
 }
