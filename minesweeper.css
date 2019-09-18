@@ -17,7 +17,7 @@ td.mine {
   /* Used top signal presence of a mine */
 }
 td.mine-show {
-  background-image: url('img/mine.png');
+  background-image: url('img/trump-mine.png');
   background-color: silver;
 }
 td.explosion {
