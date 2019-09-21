@@ -11,7 +11,7 @@ let clock = document.getElementById('clock');
 const updateFlagDisplay = () => displayFlagCount.innerText = flagLimit - currentFlagCount;
 
 const setClock = () => {
-
+  const time = undefined;
 }
 
 const initGlobals = () => {
