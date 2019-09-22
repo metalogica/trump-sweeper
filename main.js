@@ -12,6 +12,7 @@ const updateFlagDisplay = () => displayFlagCount.innerText = flagLimit - current
 
 const setClock = () => {
   const time = undefined;
+  const repeat = undefined;
 }
 
 const initGlobals = () => {
