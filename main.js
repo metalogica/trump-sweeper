@@ -12,9 +12,7 @@ const clock1 = document.getElementById('clock1');
 const clock2 = document.getElementById('clock2');
 const clock3 = document.getElementById('clock3');
 
-// Game Init
-const updateFlagDisplay = () => displayFlagCount.innerText = flagLimit - currentFlagCount;
-
+// Clock function
 const renderTimer = (time) => {
   let clock = time.split('');
 
@@ -33,15 +31,15 @@ const renderTimer = (time) => {
     clock3.innerText = clock[2];
   }
 }
-
 const timer = () => {
   let time = new Date() - gameStart;
   time = `${(time/1000).toFixed(0)}`;
   renderTimer(time);
 }
-
 setInterval(() => timer(), 1000);
 
+// Game Init
+const updateFlagDisplay = () => displayFlagCount.innerText = flagLimit - currentFlagCount;
 
 const initGlobals = () => {
   updateFlagDisplay();
