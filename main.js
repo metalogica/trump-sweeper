@@ -6,14 +6,42 @@ let flagLimit = globalMineCount;
 let currentFlagCount = 0;
 let displayFlagCount = document.getElementById('flagCount');
 let clock = document.getElementById('clock');
+const gameStart = new Date();
+// DOM elements
+const clock1 = document.getElementById('clock1');
+const clock2 = document.getElementById('clock2');
+const clock3 = document.getElementById('clock3');
 
 // Game Init
 const updateFlagDisplay = () => displayFlagCount.innerText = flagLimit - currentFlagCount;
 
-const setClock = () => {
-  const time = undefined;
-  const repeat = undefined;
+const renderTimer = (time) => {
+  let clock = time.split('');
+
+  if (clock.length === 3) {
+    clock = [Number(clock[0]), Number(clock[1]), Number(clock[2])];
+    clock1.innerText = clock[0];
+    clock2.innerText = clock[1];
+    clock3.innerText = clock[2];
+  } else if (clock.length === 2) {
+    clock = [0, Number(clock[0]), Number(clock[1])];
+    console.log(clock);
+    clock2.innerText = clock[1];
+    clock3.innerText = clock[2];
+  } else {
+    clock = [0, 0, Number(clock[0])];
+    clock3.innerText = clock[2];
+  }
 }
+
+const timer = () => {
+  let time = new Date() - gameStart;
+  time = `${(time/1000).toFixed(0)}`;
+  renderTimer(time);
+}
+
+setInterval(() => timer(), 1000);
+
 
 const initGlobals = () => {
   updateFlagDisplay();
