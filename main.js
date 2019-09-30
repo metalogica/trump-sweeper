@@ -1,7 +1,7 @@
 // Globals
 let gameWon = false;
 let gameLost = false;
-let globalMineCount = 30;
+let globalMineCount = 1;
 let flagLimit = globalMineCount;
 let currentFlagCount = 0;
 let displayFlagCount = document.getElementById('flagCount');
@@ -52,9 +52,9 @@ const buildBoard = () => {
   boardContainer.innerHTML = '';
 
   var table = [];
-  for (let rowIndex = 0; rowIndex < 20; rowIndex++) {
+  for (let rowIndex = 0; rowIndex < 2; rowIndex++) {
     let row = [`<tr>`,`</tr>`];
-    for (let tdIndex = 0; tdIndex < 20; tdIndex++) {
+    for (let tdIndex = 0; tdIndex < 2; tdIndex++) {
       let td = `<td id="${rowIndex}-${tdIndex}" class="unopened"></td>`;
       row.splice(-1,0,td);
     }
@@ -160,7 +160,9 @@ const addFlag = (cell) => {
     displayFlagCount.innerText = flagLimit - currentFlagCount;
     updateFlagDisplay();
   }
-  console.log(currentFlagCount, flagLimit)
+  console.log(currentFlagCount, flagLimit);
+
+  if (currentFlagCount === flagLimit) checkVictory();
 }
 
 // Top-Level Code
@@ -173,7 +175,26 @@ const renderMines = (cell) => {
   document.querySelectorAll('.mine').forEach(mine => mine.classList.add('mine-show'));
 }
 
+const flagsMatchMines = (flags, mines) => {
+  f = Array.from(flags).map(f => f.id).sort();
+  m = Array.from(mines).map(f => f.id).sort();
+  return String(f) === String(m) ? true : false;
+}
+
+const checkVictory = () => {
+  let flags = document.querySelectorAll('.flagged');
+  let mines = document.querySelectorAll('.mine');
+  let flagsEqualMines = flagsMatchMines(flags, mines);
+
+  if (flags.length === mines.length && flagsEqualMines) {
+    alert('You win! Now please edit win conditions to reset game.')
+    return true;
+  }
+}
+
 const click = (cell) => {
+  if (cell.classList.contains('flagged')) return false;
+
   if (hasMine(cell)) {
     renderMines(cell);
     openAllCellsAtGameEnd(cell);

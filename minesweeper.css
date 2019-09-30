@@ -14,7 +14,7 @@ td.question {
   background: url('img/question.svg');
 }
 td.mine {
-  /* Used top signal presence of a mine */
+  /* Used to signal presence of a mine */
 }
 td.mine-show {
   background-image: url('img/trump-mine.png');
