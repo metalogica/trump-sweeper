@@ -4,10 +4,14 @@
   "main": "index.js",
   "repository": "git@github.com:catonmat/trump-sweeper.git",
   "author": "Richard Jarram <rjarram@me.com>",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
   "license": "MIT",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
+    "jest": "23.6.0",
     "webpack": "^4.39.3",
     "webpack-dev-server": "^3.8.0"
   }

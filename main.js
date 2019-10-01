@@ -1,7 +1,7 @@
 // Globals
 let gameWon = false;
 let gameLost = false;
-let globalMineCount = 1;
+let globalMineCount = 5;
 let flagLimit = globalMineCount;
 let currentFlagCount = 0;
 let displayFlagCount = document.getElementById('flagCount');
@@ -52,9 +52,9 @@ const buildBoard = () => {
   boardContainer.innerHTML = '';
 
   var table = [];
-  for (let rowIndex = 0; rowIndex < 2; rowIndex++) {
+  for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
     let row = [`<tr>`,`</tr>`];
-    for (let tdIndex = 0; tdIndex < 2; tdIndex++) {
+    for (let tdIndex = 0; tdIndex < 5; tdIndex++) {
       let td = `<td id="${rowIndex}-${tdIndex}" class="unopened"></td>`;
       row.splice(-1,0,td);
     }
